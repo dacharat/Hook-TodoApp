@@ -1,28 +1,28 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Dashboard from "./components/Dashboard";
+import InputForm from "./components/InputForm";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+export const TodoContext = React.createContext();
+
+const App = () => {
+  const [text, setText] = useState("");
+  const [lists, setList] = useState(["a", "b"]);
+
+  const inputText = e => {
+    setText(e.target.value);
+  };
+
+  const addList = () => {
+    setList([...lists, text]);
+    setText("")
+  };
+
+  return (
+    <TodoContext.Provider value={{ text, lists, inputText, addList }}>
+      <Dashboard lists={lists} />
+      <InputForm />
+    </TodoContext.Provider>
+  );
+};
 
 export default App;
