@@ -17,8 +17,12 @@ const App = () => {
     setText("")
   };
 
+  const removeItem = item => {    
+    setList(lists.filter(list => list !== item))
+  }
+
   return (
-    <TodoContext.Provider value={{ text, lists, inputText, addList }}>
+    <TodoContext.Provider value={{ text, lists, inputText, addList, removeItem }}>
       <Dashboard lists={lists} />
       <InputForm />
     </TodoContext.Provider>
